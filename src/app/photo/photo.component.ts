@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { FetchService } from '../fetch.service';
 
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
-  styleUrls: ['./photo.component.css']
+  styleUrls: ['./photo.component.css'],
 })
 export class PhotoComponent implements OnInit {
+  imageURL: string = '';
 
-  constructor() { }
+  constructor(private fetchService: FetchService) {}
 
-  ngOnInit(): void {
+  getImage() {
+    this.fetchService.getPhoto().subscribe((urls) => {
+      this.imageURL = urls.thumb;
+    });
   }
 
+  ngOnInit(): void {}
 }
